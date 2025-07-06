@@ -45,12 +45,12 @@ func paint_player_position() -> void:
 func paint_player_view() -> void:
 	#var thePlayer = get_tree().get_nodes_in_group("Players")[0]
 	var currentCamera = get_viewport().get_camera_3d()
-	var output_text = "ROT:X:%.2f/Y:%.2f/Z:%.2f" % [currentCamera.rotation.x, currentCamera.rotation.y, currentCamera.rotation.z]
+	var cameraPivot = currentCamera.get_parent_node_3d().get_parent_node_3d().get_parent_node_3d()
+	var output_text = "ROT:X:%.2f/Y:%.2f/Z:%.2f" % [currentCamera.rotation.x, cameraPivot.rotation.y, cameraPivot.rotation.z]
 	label_player_view.text = output_text
 
 func paint_player_info() -> void:
 	var thePlayer = get_tree().get_nodes_in_group("Players")[0]
-	#var currentCamera = get_viewport().get_camera_3d()
 	var output_text = "T:%d F:%d A:%d JUMPS:%d" % [thePlayer.distance_travelled, thePlayer.distance_travelled_on_floor, thePlayer.distance_travelled_in_air, thePlayer.times_jumped]
 	label_player_info.text = output_text
 

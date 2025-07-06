@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
 @export var speed: float = 5.5
+@export var speed_sprint: float = 8.2
 @export var jump_velocity: float = 6.5
 @export var mouse_sensitivity = 0.002
 
@@ -9,11 +10,17 @@ var distance_travelled: float = 0.0
 var distance_travelled_on_floor: float = 0.0
 var distance_travelled_in_air: float = 0.0
 var times_jumped: int = 0
+var first_start_date: String
+
+var save_file_path = "user://player_data.save"
+var save_keys = ["distance_travelled", "distance_travelled_on_floor", "distance_travelled_in_air", "times_jumped", "first_start_date"]
 
 @onready var camera_3d: Camera3D = $CameraPivot/CameraArm/Camera3D
 
 func _ready():
 	last_position = global_position
+	if first_start_date == null:
+		first_start_date = Time.get_datetime_string_from_system(true)
 	
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -36,7 +43,6 @@ func _physics_process(delta: float) -> void:
 	last_position = current_position
 	
 	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forwards", "move_backwards")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:

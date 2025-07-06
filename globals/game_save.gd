@@ -1,20 +1,20 @@
 extends Node
 
-
-var thePlayer
 var player_data
+var save_file_path
+var save_keys
 
-var save_file_path = "user://player_data.save"
-var save_keys = ["distance_travelled", "distance_travelled_on_floor", "distance_travelled_in_air", "times_jumped"]
+var max_backups := 5  # Anzahl der maximalen Sicherungen, kann angepasst werden
 
 func _ready():
-	thePlayer = get_tree().get_nodes_in_group("Players")[0]
-	player_data = thePlayer
+	player_data = Game.get_player()
+	save_file_path = player_data["save_file_path"]
+	save_keys = player_data["save_keys"]
 	# Beim Start: Daten laden oder Standarddaten verwenden
 	if load_player_data():
-		print("Daten geladen:", player_data)
+		Logger.out(self, "Daten geladen: %s"% player_data)
 	else:
-		print("Keine gespeicherten Daten gefunden, Standarddaten werden genutzt.")
+		Logger.out(self, "Keine gespeicherten Daten gefunden, Standarddaten werden genutzt.")
 
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
@@ -144,26 +144,27 @@ func load_player_data() -> bool:
 			file.close()
 			return false
 		set(key, loaded_value)
-		thePlayer[key] = loaded_value
+		player_data[key] = loaded_value
 
 	file.close()
-	print("Spielerdaten geladen.")
+	Logger.out(self, "Spielerdaten geladen.")
 	return true
 
 func save_player_data():
+	backup_save_file()  # Sicherung vor dem Überschreiben erstellen	
+	
 	var file = FileAccess.open(save_file_path, FileAccess.WRITE)
 	if not file:
 		push_error("Speichern: Datei konnte nicht geöffnet werden.")
 		return
 	for key in save_keys:
 		#var value = get(key)
-		var value = thePlayer[key]
+		var value = player_data[key]
 		var err = _save_value(file, value)
 		if err != OK:
 			push_error("Speichern: Fehler beim Speichern von '%s'" % key)
 	file.close()
-	print("Spielerdaten gespeichert.")
-
+	Logger.out(self, "Spielerdaten gespeichert.")
 
 func debug_print_saved_data():
 	if not FileAccess.file_exists(save_file_path):
@@ -189,3 +190,34 @@ func debug_print_saved_data():
 		print(key, ":", loaded_value)
 
 	file.close()
+
+func backup_save_file():
+	if not FileAccess.file_exists(save_file_path):
+		return  # Keine Datei, nichts zu sichern
+
+	# Backup-Dateiname mit Datum/Uhrzeit
+	var date_str = Time.get_datetime_string_from_system(true).replace(":", "-").replace(" ", "_")
+	var backup_name = "user://player_data_%s.bak" % date_str
+
+	# Ursprüngliche Datei als Backup mit Zeitstempel speichern
+	DirAccess.rename_absolute(save_file_path, backup_name)
+
+	# Alte Backups aufräumen
+	var dir = DirAccess.open("user://")
+	if dir:
+		var backups = []
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if file_name.begins_with("player_data_") and file_name.ends_with(".bak"):
+				backups.append(file_name)
+			file_name = dir.get_next()
+		dir.list_dir_end()
+
+		# Nach Namen sortieren (älteste zuerst, weil Datumsnamen aufsteigend sortiert werden)
+		backups.sort()
+
+		# Wenn zu viele Backups vorhanden sind: älteste löschen
+		while backups.size() > max_backups:
+			var oldest = backups.pop_front()
+			DirAccess.remove_absolute("user://" + oldest)

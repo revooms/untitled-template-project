@@ -1,6 +1,5 @@
 extends Node
 
-
 @export var author: String = "IkoTikashi"
 @export var date_begin: String = "2025-06-07"
 @export var version: String = "0.1"
@@ -12,10 +11,6 @@ func _ready() -> void:
 	title = ProjectSettings.get_setting("application/config/name")
 	set_warmup()
 	Logger.out(self, "Ready")
-	#Logger.out(self, "foo bar")
-	#Logger.info(self, "foo bar")
-	#Logger.warning(self, "foo bar")
-	#Logger.danger(self, "foo bar")
 
 func set_state(newstate: Enums.GameState) -> void:
 	state = newstate
@@ -51,7 +46,9 @@ func is_paused() -> bool:
 	
 func QuitApplication() -> void:
 	set_shutdown()
-	#GameSave.debug_print_saved_data()
 	GameSave.save_player_data()
-
 	get_tree().quit()
+
+func get_player() -> Node3D:
+	var player_data = get_tree().get_nodes_in_group("Players")[0]
+	return player_data
