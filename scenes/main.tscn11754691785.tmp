@@ -1,0 +1,113 @@
+[gd_scene load_steps=5 format=3 uid="uid://dsr14jtwafx8v"]
+
+[ext_resource type="Script" uid="uid://cjavcn2wn7xj3" path="res://scripts/main.gd" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://byr5ghw08785o" path="res://scenes/world.tscn" id="2_sugp2"]
+[ext_resource type="PackedScene" uid="uid://cqpf8ihidnd5u" path="res://scenes/player.tscn" id="3_jyhfs"]
+[ext_resource type="Script" uid="uid://pw3wirqhw71y" path="res://scripts/ui.gd" id="4_tbgi4"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_o5qli")
+
+[node name="World" parent="." instance=ExtResource("2_sugp2")]
+
+[node name="Player" parent="." instance=ExtResource("3_jyhfs")]
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("4_tbgi4")
+
+[node name="GameStatus" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/GameStatus"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="GameStatusLabel" type="Label" parent="UI/GameStatus/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Game Status Label"
+horizontal_alignment = 2
+
+[node name="FadeBlackScreen" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="UI/FadeBlackScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0.0235294, 1)
+
+[node name="PauseMenu" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="Panel" type="Panel" parent="UI/PauseMenu/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PauseMenu/MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -113.0
+offset_top = -33.0
+offset_right = 113.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="ResumeGameButton" type="Button" parent="UI/PauseMenu/MarginContainer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="ExitGameButton" type="Button" parent="UI/PauseMenu/MarginContainer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Exit To Desktop"
+
+[connection signal="pressed" from="UI/PauseMenu/MarginContainer/Panel/VBoxContainer/ResumeGameButton" to="UI" method="_on_resume_game_button_pressed"]
+[connection signal="pressed" from="UI/PauseMenu/MarginContainer/Panel/VBoxContainer/ExitGameButton" to="UI" method="_on_exit_game_button_pressed"]
