@@ -8,7 +8,9 @@ func _ready() -> void:
 	ui.fadeScreenIn()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	#if (Input.is_key_pressed(KEY_ESCAPE)):
+func _physics_process(_delta: float) -> void:
 	if (Input.is_action_just_pressed("pause")):
-		Game.set_paused()
+		if Game.is_paused():
+			Game.set_running()
+		else:
+			Game.set_paused()

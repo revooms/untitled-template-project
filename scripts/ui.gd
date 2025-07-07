@@ -6,7 +6,7 @@ const FADE_SECONDS = 1
 @onready var color_rect: ColorRect = $FadeBlackScreen/ColorRect
 @onready var pause_menu: Control = $PauseMenu
 
-@onready var label_calender: Control = %InfoItemsContainer/GameCalendar/%GameCalendarLabel
+@onready var label_calendar: Control = %InfoItemsContainer/GameCalendar/%GameCalendarLabel
 @onready var label_player_position: Control = %InfoItemsContainer/PlayerPosition/%PlayerPositionLabel
 @onready var label_player_view: Control = %InfoItemsContainer/PlayerView/%PlayerViewLabel
 @onready var label_player_info: Control = %InfoItemsContainer/PlayerInfo/%PlayerInfoLabel
@@ -18,7 +18,6 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	paint_game_calendar()
 	paint_player_position()
 	paint_player_view()
 	paint_player_info()
@@ -31,11 +30,6 @@ func paint_game_status() -> void:
 		pause_menu.show()
 	else:
 		pause_menu.hide()
-
-func paint_game_calendar() -> void:
-	var today = Time.get_datetime_string_from_system()
-	var cal = GameCalendar.get_date_object(today)
-	label_calender.text = cal.datetimestring
 
 func paint_player_position() -> void:
 	var thePlayer = get_tree().get_nodes_in_group("Players")[0]
@@ -68,9 +62,3 @@ func fadeScreenOut() -> PropertyTweener:
 	color_rect.show()
 	var tween = get_tree().create_tween().tween_property(color_rect, "color", Color(0,0,0,1), FADE_SECONDS)
 	return tween
-
-func _on_exit_game_button_pressed() -> void:
-	Game.QuitApplication()
-
-func _on_resume_game_button_pressed() -> void:
-	Game.set_running()

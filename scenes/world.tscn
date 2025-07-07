@@ -1,18 +1,39 @@
-[gd_scene load_steps=9 format=3 uid="uid://byr5ghw08785o"]
+[gd_scene load_steps=17 format=3 uid="uid://byr5ghw08785o"]
 
 [ext_resource type="Environment" uid="uid://uicxvobl10rx" path="res://defaults/environment.tres" id="1_4wyf3"]
 [ext_resource type="Script" uid="uid://c52tveagbxupr" path="res://scripts/world.gd" id="1_71j4m"]
 [ext_resource type="CameraAttributesPractical" uid="uid://uucuiobxcfca" path="res://defaults/camera_attributes_practical.tres" id="2_k0juu"]
 [ext_resource type="Compositor" uid="uid://bwknf34rvb2fo" path="res://defaults/compositor.tres" id="3_71j4m"]
-[ext_resource type="Texture2D" uid="uid://cot6470faln1v" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="4_k0juu"]
+[ext_resource type="PackedScene" uid="uid://c5uu6wubjxn05" path="res://prefabs/monitor.tscn" id="6_qfnet"]
+[ext_resource type="PackedScene" uid="uid://bsa74c2jbfclk" path="res://ui/pause_menu.tscn" id="6_w7kh3"]
+[ext_resource type="PackedScene" uid="uid://gbdqy710ebj3" path="res://ui/player_info.tscn" id="7_7r4gi"]
+[ext_resource type="PackedScene" uid="uid://bgkti5qh5ca31" path="res://ui/player_position.tscn" id="8_w7kh3"]
+[ext_resource type="PackedScene" uid="uid://dhc4kknqs65gw" path="res://ui/player_view.tscn" id="9_e3hyu"]
+[ext_resource type="Shader" uid="uid://bhw5h5q6qojya" path="res://assets/shaders/lava.gdshader" id="10_w7kh3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nnsk1"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e5uuo"]
-albedo_color = Color(0.325844, 0.198038, 0.0342555, 1)
-albedo_texture = ExtResource("4_k0juu")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w7kh3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4wyf3"]
+size = Vector3(64, 1, 64)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7r4gi"]
+render_priority = 0
+shader = ExtResource("10_w7kh3")
+shader_parameter/dark_lava_color = Color(0.769556, 0.270052, 0.0741384, 1)
+shader_parameter/light_lava_color = Color(0.254432, 0.0140316, 0.00713826, 1)
+shader_parameter/speed = 0.182
+shader_parameter/scale = 4.815
+shader_parameter/sharpness = 20.8
+shader_parameter/emission_intensity = 0.182
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_q5onr"]
+material = SubResource("ShaderMaterial_7r4gi")
+size = Vector2(128, 128)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_7r4gi"]
+data = PackedVector3Array(64, 0, 64, -64, 0, 64, 64, 0, -64, -64, 0, 64, -64, 0, -64, 64, 0, -64)
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_71j4m")
@@ -33,14 +54,43 @@ directional_shadow_max_distance = 1000.0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Boundaries"]
 shape = SubResource("BoxShape3D_nnsk1")
 
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Boundaries"]
+shape = SubResource("BoxShape3D_nnsk1")
+
 [node name="Ground" type="Node3D" parent="."]
 
 [node name="Body" type="CSGBox3D" parent="Ground"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-material = SubResource("StandardMaterial3D_e5uuo")
+size = Vector3(64, 1, 64)
+material = SubResource("ShaderMaterial_w7kh3")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Ground/Body"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/Body/StaticBody3D"]
 visible = false
 shape = SubResource("BoxShape3D_4wyf3")
+
+[node name="Monitor" parent="." instance=ExtResource("6_qfnet")]
+
+[node name="Monitor5" parent="." instance=ExtResource("6_qfnet")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.94555, 0, 0)
+UI_scene = ExtResource("6_w7kh3")
+
+[node name="Monitor2" parent="." instance=ExtResource("6_qfnet")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.80868, 0, 0)
+UI_scene = ExtResource("7_7r4gi")
+
+[node name="Monitor3" parent="." instance=ExtResource("6_qfnet")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.61715, 0, 0)
+UI_scene = ExtResource("8_w7kh3")
+
+[node name="Monitor4" parent="." instance=ExtResource("6_qfnet")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.43782, 0, 0)
+UI_scene = ExtResource("9_e3hyu")
+
+[node name="HellPlane" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20.3331, 0)
+mesh = SubResource("PlaneMesh_q5onr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HellPlane"]
+shape = SubResource("ConcavePolygonShape3D_7r4gi")

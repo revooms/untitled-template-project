@@ -1,0 +1,73 @@
+[gd_scene load_steps=7 format=3 uid="uid://c5uu6wubjxn05"]
+
+[ext_resource type="Script" uid="uid://cerk2twf0t00k" path="res://prefabs/monitor.gd" id="1_86wwx"]
+[ext_resource type="PackedScene" uid="uid://pbp2r8bu5eps" path="res://ui/game_calendar.tscn" id="1_cns3k"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_n3fpd"]
+size = Vector2(3, 2)
+
+[sub_resource type="ViewportTexture" id="2"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tswf8"]
+resource_local_to_scene = true
+transparency = 1
+shading_mode = 0
+albedo_texture = SubResource("2")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x5f5u"]
+size = Vector3(3, 2, 0.1)
+
+[node name="Monitor" type="Node3D" node_paths=PackedStringArray("node_quad", "node_area")]
+script = ExtResource("1_86wwx")
+UI_scene = ExtResource("1_cns3k")
+node_quad = NodePath("Display")
+node_area = NodePath("Display/Area3D")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+snap_2d_transforms_to_pixel = true
+gui_embed_subwindows = true
+size = Vector2i(1920, 1080)
+size_2d_override_stretch = true
+
+[node name="MarginContainer" type="MarginContainer" parent="SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Plate" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+size = Vector3(1, 0.1, 1)
+
+[node name="Socket" type="CSGBox3D" parent="Plate"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+size = Vector3(0.3, 1, 0.3)
+
+[node name="Screen" type="CSGBox3D" parent="Plate/Socket"]
+transform = Transform3D(1, 0, 0, 0, 0.607376, -0.794415, 0, 0.794415, 0.607376, 0, 0.493822, 0.1398)
+size = Vector3(1.56738, 0.1, 1)
+
+[node name="Display" type="MeshInstance3D" parent="."]
+editor_description = "To setup this MeshInstance3D:
+* Set Surface Material Override to a new StandardMaterial3D.
+* At the bottom of the StandardMaterial3D's properties, set \"Local to Scene\" to true.
+* Set the Albedo Texture of StandardMaterial3D to new ViewportTexture and set the Viewport Path.
+* Transparency to Alpha.
+* Shading to Unshaded."
+transform = Transform3D(0.502308, 0, 0, 0, 0.357416, 0.351567, 0, -0.271058, 0.463576, 0, 1.08125, 0.178865)
+cast_shadow = 0
+mesh = SubResource("QuadMesh_n3fpd")
+surface_material_override/0 = SubResource("StandardMaterial3D_tswf8")
+
+[node name="Area3D" type="Area3D" parent="Display"]
+collision_layer = 2
+input_capture_on_drag = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Display/Area3D"]
+shape = SubResource("BoxShape3D_x5f5u")

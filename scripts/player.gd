@@ -12,15 +12,12 @@ var distance_travelled_in_air: float = 0.0
 var times_jumped: int = 0
 var first_start_date: String
 
-var save_file_path = "user://player_data.save"
-var save_keys = ["distance_travelled", "distance_travelled_on_floor", "distance_travelled_in_air", "times_jumped", "first_start_date"]
-
 @onready var camera_3d: Camera3D = $CameraPivot/CameraArm/Camera3D
 
 func _ready():
 	last_position = global_position
-	if first_start_date == null:
-		first_start_date = Time.get_datetime_string_from_system(true)
+	if first_start_date == null or first_start_date == "":
+		first_start_date = Time.get_datetime_string_from_system()
 	
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -29,8 +26,7 @@ func _physics_process(delta: float) -> void:
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
-		times_jumped += 1
-		velocity.y = jump_velocity
+		jump()
 
 	var current_position = global_position
 	var distance_this_frame = last_position.distance_to(current_position)
@@ -59,3 +55,18 @@ func _input(event):
 		rotate_y(-event.relative.x * mouse_sensitivity)
 		camera_3d.rotate_x(-event.relative.y * mouse_sensitivity)
 		camera_3d.rotation.x = clampf(camera_3d.rotation.x, -deg_to_rad(70), deg_to_rad(70))
+
+func jump() -> void:
+	times_jumped += 1
+	velocity.y = jump_velocity
+
+func get_persistant_object() -> Dictionary:
+	return {
+		"position": self.position,
+		"rotation": self.rotation,
+		"distance_travelled": self.distance_travelled, 
+		"distance_travelled_on_floor": self.distance_travelled_on_floor, 
+		"distance_travelled_in_air": self.distance_travelled_in_air, 
+		"times_jumped": self.times_jumped, 
+		"first_start_date": self.first_start_date,
+	}

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3hf471x1p6g3"]
+
+[ext_resource type="Script" uid="uid://q2wtn21430md" path="res://prefabs/pad.gd" id="1_x2mm2"]
+
+[node name="Pad" type="Node3D"]
+script = ExtResource("1_x2mm2")

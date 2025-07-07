@@ -1,18 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://dsr14jtwafx8v"]
+[gd_scene load_steps=11 format=3 uid="uid://dsr14jtwafx8v"]
 
 [ext_resource type="Script" uid="uid://cjavcn2wn7xj3" path="res://scripts/main.gd" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://byr5ghw08785o" path="res://scenes/world.tscn" id="2_sugp2"]
 [ext_resource type="PackedScene" uid="uid://cqpf8ihidnd5u" path="res://scenes/player.tscn" id="3_jyhfs"]
 [ext_resource type="Script" uid="uid://pw3wirqhw71y" path="res://scripts/ui.gd" id="4_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://bsa74c2jbfclk" path="res://ui/pause_menu.tscn" id="5_85g3d"]
 [ext_resource type="PackedScene" uid="uid://pbp2r8bu5eps" path="res://ui/game_calendar.tscn" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://bgkti5qh5ca31" path="res://ui/player_position.tscn" id="6_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://gbdqy710ebj3" path="res://ui/player_info.tscn" id="6_tefeu"]
 [ext_resource type="PackedScene" uid="uid://dhc4kknqs65gw" path="res://ui/player_view.tscn" id="7_tipki"]
-
-[sub_resource type="InputEventAction" id="InputEventAction_jyhfs"]
-
-[sub_resource type="Shortcut" id="Shortcut_tbgi4"]
-events = [SubResource("InputEventAction_jyhfs")]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tefeu"]
 
@@ -23,6 +19,7 @@ script = ExtResource("1_o5qli")
 worldsize = Vector2(64, 64)
 
 [node name="Player" parent="." instance=ExtResource("3_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.1837)
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("4_tbgi4")
@@ -73,54 +70,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0.0235294, 1)
 
-[node name="PauseMenu" type="Control" parent="UI"]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/PauseMenu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
-
-[node name="Panel" type="Panel" parent="UI/PauseMenu/MarginContainer"]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/PauseMenu/MarginContainer/Panel"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -113.0
-offset_top = -33.0
-offset_right = 113.0
-offset_bottom = 33.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 16
-alignment = 1
-
-[node name="ResumeGameButton" type="Button" parent="UI/PauseMenu/MarginContainer/Panel/VBoxContainer"]
-layout_mode = 2
-shortcut = SubResource("Shortcut_tbgi4")
-text = "Resume"
-
-[node name="ExitGameButton" type="Button" parent="UI/PauseMenu/MarginContainer/Panel/VBoxContainer"]
-layout_mode = 2
-text = "Exit To Desktop"
+[node name="PauseMenu" parent="UI" instance=ExtResource("5_85g3d")]
 
 [node name="InfoMenu" type="Control" parent="UI"]
 custom_minimum_size = Vector2(0, 80)
@@ -163,6 +113,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="GameCalendar" parent="UI/InfoMenu/MarginContainer/Panel/ScrollContainer/InfoItemsContainer" instance=ExtResource("5_tbgi4")]
+visible = false
 layout_mode = 2
 
 [node name="PlayerPosition" parent="UI/InfoMenu/MarginContainer/Panel/ScrollContainer/InfoItemsContainer" instance=ExtResource("6_o6xl0")]
@@ -176,6 +127,3 @@ layout_mode = 2
 [node name="PlayerInfo" parent="UI/InfoMenu/MarginContainer/Panel/ScrollContainer/InfoItemsContainer" instance=ExtResource("6_tefeu")]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-
-[connection signal="pressed" from="UI/PauseMenu/MarginContainer/Panel/VBoxContainer/ResumeGameButton" to="UI" method="_on_resume_game_button_pressed"]
-[connection signal="pressed" from="UI/PauseMenu/MarginContainer/Panel/VBoxContainer/ExitGameButton" to="UI" method="_on_exit_game_button_pressed"]
