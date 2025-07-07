@@ -57,6 +57,15 @@ func get_player_node() -> Node3D:
 	var player_data = get_tree().get_first_node_in_group("Players")
 	return player_data
 
+func get_camera() -> Dictionary:
+	var camera = get_viewport().get_camera_3d()
+	var cameraPivot = camera.get_parent_node_3d().get_parent_node_3d().get_parent_node_3d()
+	
+	return {
+		"camera": camera,
+		"camera_pivot": cameraPivot,
+	}
+	
 func get_persistant_object() -> Dictionary:
 	return {
 		"author": self.author,

@@ -1,7 +1,7 @@
 extends Node
 
 func _ready() -> void:
-	self.out(self, "Logger ready")
+	self.out(self, "Ready")
 
 func log(identifier, type: Enums.LogType, message: String) -> void:
 	print(create_message(identifier, type, message))
