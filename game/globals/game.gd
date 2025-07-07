@@ -50,8 +50,14 @@ func QuitApplication() -> void:
 	get_tree().quit()
 
 func get_player() -> Node3D:
-	var player_data = get_tree().get_nodes_in_group("Players")[0]
+	var player_data
+	if not get_tree().get_nodes_in_group("Players").is_empty():
+		player_data = get_tree().get_nodes_in_group("Players")[0]
+	else:
+		player_data = get_node("Player")
+	
 	return player_data
+
 
 func get_player_node() -> Node3D:
 	var player_data = get_tree().get_first_node_in_group("Players")
