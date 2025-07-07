@@ -1,10 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://1y5evafe3ksw"]
+[gd_scene load_steps=2 format=3 uid="uid://1y5evafe3ksw"]
 
-[ext_resource type="Script" uid="uid://bckmqxyun5wrg" path="res://prefabs/monitors/monitor_settings.gd" id="1_rgsd3"]
 [ext_resource type="PackedScene" uid="uid://tw78n81sg4jg" path="res://prefabs/screen.tscn" id="3_5chco"]
 
 [node name="MonitorSettings" type="Node3D"]
-script = ExtResource("1_rgsd3")
 
 [node name="Screen" parent="." instance=ExtResource("3_5chco")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0169598)

@@ -1,11 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://f7v8oq8u4edd"]
+[gd_scene load_steps=3 format=3 uid="uid://f7v8oq8u4edd"]
 
-[ext_resource type="Script" uid="uid://cy8vd40jfh2fg" path="res://prefabs/monitors/monitor_pause.gd" id="1_68j7h"]
 [ext_resource type="PackedScene" uid="uid://bsa74c2jbfclk" path="res://ui/screens/pause_menu.tscn" id="3_ndhsd"]
 [ext_resource type="PackedScene" uid="uid://tw78n81sg4jg" path="res://prefabs/screen.tscn" id="3_qvs4e"]
 
 [node name="MonitorPause" type="Node3D"]
-script = ExtResource("1_68j7h")
 
 [node name="Screen" parent="." instance=ExtResource("3_qvs4e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0169598)

@@ -1,11 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c0vkctu2rw2r4"]
+[gd_scene load_steps=3 format=3 uid="uid://c0vkctu2rw2r4"]
 
-[ext_resource type="Script" uid="uid://s2bt1jhsgkie" path="res://prefabs/monitors/monitor_ads.gd" id="1_rlpi2"]
-[ext_resource type="PackedScene" uid="uid://cadqnfruwtx4l" path="res://ui/screens/ads.tscn" id="3_2ieas"]
+[ext_resource type="PackedScene" uid="uid://cadqnfruwtx4l" path="res://ui/screens/localtime.tscn" id="3_2ieas"]
 [ext_resource type="PackedScene" uid="uid://tw78n81sg4jg" path="res://prefabs/screen.tscn" id="3_anvl0"]
 
-[node name="MonitorAds" type="Node3D"]
-script = ExtResource("1_rlpi2")
+[node name="MonitorLocaltime" type="Node3D"]
 
 [node name="Screen" parent="." instance=ExtResource("3_anvl0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0169598)

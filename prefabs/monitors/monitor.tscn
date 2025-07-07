@@ -1,11 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c5uu6wubjxn05"]
+[gd_scene load_steps=3 format=3 uid="uid://c5uu6wubjxn05"]
 
-[ext_resource type="Script" uid="uid://cerk2twf0t00k" path="res://prefabs/monitors/monitor.gd" id="1_86wwx"]
 [ext_resource type="PackedScene" uid="uid://pbp2r8bu5eps" path="res://ui/screens/game_calendar.tscn" id="1_cns3k"]
 [ext_resource type="PackedScene" uid="uid://tw78n81sg4jg" path="res://prefabs/screen.tscn" id="3_y2f56"]
 
 [node name="Monitor" type="Node3D"]
-script = ExtResource("1_86wwx")
 
 [node name="Screen" parent="." instance=ExtResource("3_y2f56")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0169598)
