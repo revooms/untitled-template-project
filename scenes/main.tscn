@@ -1,16 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://dsr14jtwafx8v"]
+[gd_scene load_steps=6 format=3 uid="uid://dsr14jtwafx8v"]
 
 [ext_resource type="Script" uid="uid://cjavcn2wn7xj3" path="res://scripts/main.gd" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://byr5ghw08785o" path="res://scenes/world.tscn" id="2_sugp2"]
 [ext_resource type="PackedScene" uid="uid://cqpf8ihidnd5u" path="res://scenes/player.tscn" id="3_jyhfs"]
 [ext_resource type="Script" uid="uid://pw3wirqhw71y" path="res://scripts/ui.gd" id="4_tbgi4"]
-[ext_resource type="PackedScene" uid="uid://bsa74c2jbfclk" path="res://ui/pause_menu.tscn" id="5_85g3d"]
-[ext_resource type="PackedScene" uid="uid://pbp2r8bu5eps" path="res://ui/game_calendar.tscn" id="5_tbgi4"]
-[ext_resource type="PackedScene" uid="uid://bgkti5qh5ca31" path="res://ui/player_position.tscn" id="6_o6xl0"]
-[ext_resource type="PackedScene" uid="uid://gbdqy710ebj3" path="res://ui/player_info.tscn" id="6_tefeu"]
-[ext_resource type="PackedScene" uid="uid://dhc4kknqs65gw" path="res://ui/player_view.tscn" id="7_tipki"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tefeu"]
+[ext_resource type="PackedScene" uid="uid://bsa74c2jbfclk" path="res://ui/screens/pause_menu.tscn" id="5_85g3d"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_o5qli")
@@ -53,7 +47,6 @@ text = "Game Status Label"
 horizontal_alignment = 2
 
 [node name="FadeBlackScreen" type="Control" parent="UI"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -71,59 +64,3 @@ grow_vertical = 2
 color = Color(0, 0, 0.0235294, 1)
 
 [node name="PauseMenu" parent="UI" instance=ExtResource("5_85g3d")]
-
-[node name="InfoMenu" type="Control" parent="UI"]
-custom_minimum_size = Vector2(0, 80)
-layout_mode = 3
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 902.0
-offset_bottom = 164.0
-grow_horizontal = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/InfoMenu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
-
-[node name="Panel" type="Panel" parent="UI/InfoMenu/MarginContainer"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_tefeu")
-
-[node name="ScrollContainer" type="ScrollContainer" parent="UI/InfoMenu/MarginContainer/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-horizontal_scroll_mode = 0
-
-[node name="InfoItemsContainer" type="VBoxContainer" parent="UI/InfoMenu/MarginContainer/Panel/ScrollContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="GameCalendar" parent="UI/InfoMenu/MarginContainer/Panel/ScrollContainer/InfoItemsContainer" instance=ExtResource("5_tbgi4")]
-visible = false
-layout_mode = 2
-
-[node name="PlayerPosition" parent="UI/InfoMenu/MarginContainer/Panel/ScrollContainer/InfoItemsContainer" instance=ExtResource("6_o6xl0")]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-
-[node name="PlayerView" parent="UI/InfoMenu/MarginContainer/Panel/ScrollContainer/InfoItemsContainer" instance=ExtResource("7_tipki")]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-
-[node name="PlayerInfo" parent="UI/InfoMenu/MarginContainer/Panel/ScrollContainer/InfoItemsContainer" instance=ExtResource("6_tefeu")]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2

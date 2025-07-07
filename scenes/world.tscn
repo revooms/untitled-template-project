@@ -1,14 +1,12 @@
-[gd_scene load_steps=17 format=3 uid="uid://byr5ghw08785o"]
+[gd_scene load_steps=15 format=3 uid="uid://byr5ghw08785o"]
 
-[ext_resource type="Environment" uid="uid://uicxvobl10rx" path="res://defaults/environment.tres" id="1_4wyf3"]
+[ext_resource type="Environment" uid="uid://uicxvobl10rx" path="res://game/defaults/environment.tres" id="1_4wyf3"]
 [ext_resource type="Script" uid="uid://c52tveagbxupr" path="res://scripts/world.gd" id="1_71j4m"]
-[ext_resource type="CameraAttributesPractical" uid="uid://uucuiobxcfca" path="res://defaults/camera_attributes_practical.tres" id="2_k0juu"]
-[ext_resource type="Compositor" uid="uid://bwknf34rvb2fo" path="res://defaults/compositor.tres" id="3_71j4m"]
-[ext_resource type="PackedScene" uid="uid://c5uu6wubjxn05" path="res://prefabs/monitor.tscn" id="6_qfnet"]
-[ext_resource type="PackedScene" uid="uid://bsa74c2jbfclk" path="res://ui/pause_menu.tscn" id="6_w7kh3"]
-[ext_resource type="PackedScene" uid="uid://gbdqy710ebj3" path="res://ui/player_info.tscn" id="7_7r4gi"]
-[ext_resource type="PackedScene" uid="uid://bgkti5qh5ca31" path="res://ui/player_position.tscn" id="8_w7kh3"]
-[ext_resource type="PackedScene" uid="uid://dhc4kknqs65gw" path="res://ui/player_view.tscn" id="9_e3hyu"]
+[ext_resource type="CameraAttributesPractical" uid="uid://uucuiobxcfca" path="res://game/defaults/camera_attributes_practical.tres" id="2_k0juu"]
+[ext_resource type="Compositor" uid="uid://bwknf34rvb2fo" path="res://game/defaults/compositor.tres" id="3_71j4m"]
+[ext_resource type="PackedScene" uid="uid://c5uu6wubjxn05" path="res://prefabs/monitors/monitor.tscn" id="6_qfnet"]
+[ext_resource type="PackedScene" uid="uid://c0vkctu2rw2r4" path="res://prefabs/monitors/monitor_ads.tscn" id="7_4mrxx"]
+[ext_resource type="PackedScene" uid="uid://f7v8oq8u4edd" path="res://prefabs/monitors/monitor_pause.tscn" id="8_7r4gi"]
 [ext_resource type="Shader" uid="uid://bhw5h5q6qojya" path="res://assets/shaders/lava.gdshader" id="10_w7kh3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nnsk1"]
@@ -70,27 +68,20 @@ material = SubResource("ShaderMaterial_w7kh3")
 visible = false
 shape = SubResource("BoxShape3D_4wyf3")
 
-[node name="Monitor" parent="." instance=ExtResource("6_qfnet")]
-
-[node name="Monitor5" parent="." instance=ExtResource("6_qfnet")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.94555, 0, 0)
-UI_scene = ExtResource("6_w7kh3")
-
-[node name="Monitor2" parent="." instance=ExtResource("6_qfnet")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.80868, 0, 0)
-UI_scene = ExtResource("7_7r4gi")
-
-[node name="Monitor3" parent="." instance=ExtResource("6_qfnet")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.61715, 0, 0)
-UI_scene = ExtResource("8_w7kh3")
-
-[node name="Monitor4" parent="." instance=ExtResource("6_qfnet")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.43782, 0, 0)
-UI_scene = ExtResource("9_e3hyu")
-
 [node name="HellPlane" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20.3331, 0)
 mesh = SubResource("PlaneMesh_q5onr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HellPlane"]
 shape = SubResource("ConcavePolygonShape3D_7r4gi")
+
+[node name="Monitors" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.59429)
+
+[node name="Monitor" parent="Monitors" instance=ExtResource("6_qfnet")]
+
+[node name="MonitorAds" parent="Monitors" instance=ExtResource("7_4mrxx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.89102, 0, 0)
+
+[node name="MonitorPause" parent="Monitors" instance=ExtResource("8_7r4gi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.80382, 0, 0)

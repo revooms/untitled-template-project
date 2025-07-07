@@ -28,6 +28,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		jump()
 
+	# Get distance travelled
 	var current_position = global_position
 	var distance_this_frame = last_position.distance_to(current_position)
 	distance_travelled += distance_this_frame
