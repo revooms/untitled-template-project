@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://c5uu6wubjxn05"]
+[gd_scene load_steps=6 format=3 uid="uid://tw78n81sg4jg"]
 
-[ext_resource type="Script" uid="uid://cerk2twf0t00k" path="res://prefabs/monitor.gd" id="1_86wwx"]
-[ext_resource type="PackedScene" uid="uid://pbp2r8bu5eps" path="res://ui/game_calendar.tscn" id="1_cns3k"]
+[ext_resource type="Script" uid="uid://buwmifuiy0bk0" path="res://prefabs/screen.gd" id="1_jy863"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_n3fpd"]
 size = Vector2(3, 2)
@@ -18,11 +17,8 @@ albedo_texture = SubResource("2")
 [sub_resource type="BoxShape3D" id="BoxShape3D_x5f5u"]
 size = Vector3(3, 2, 0.1)
 
-[node name="Monitor" type="Node3D" node_paths=PackedStringArray("node_quad", "node_area")]
-script = ExtResource("1_86wwx")
-UI_scene = ExtResource("1_cns3k")
-node_quad = NodePath("Display")
-node_area = NodePath("Display/Area3D")
+[node name="Screen" type="Node3D"]
+script = ExtResource("1_jy863")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 snap_2d_transforms_to_pixel = true
@@ -40,18 +36,6 @@ theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
-
-[node name="Plate" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
-size = Vector3(1, 0.1, 1)
-
-[node name="Socket" type="CSGBox3D" parent="Plate"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-size = Vector3(0.3, 1, 0.3)
-
-[node name="Screen" type="CSGBox3D" parent="Plate/Socket"]
-transform = Transform3D(1, 0, 0, 0, 0.607376, -0.794415, 0, 0.794415, 0.607376, 0, 0.493822, 0.1398)
-size = Vector3(1.56738, 0.1, 1)
 
 [node name="Display" type="MeshInstance3D" parent="."]
 editor_description = "To setup this MeshInstance3D:

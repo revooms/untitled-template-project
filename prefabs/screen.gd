@@ -10,22 +10,22 @@ var last_event_pos2D := Vector2()
 var last_event_time := -1.0
 
 @export var UI_scene: PackedScene
-@export var node_quad: MeshInstance3D
-@export var node_area: Area3D
 
 @onready var node_viewport: SubViewport = $SubViewport
 @onready var margin_container: MarginContainer = $SubViewport/MarginContainer
+@onready var display: MeshInstance3D = $Display
+@onready var area_3d: Area3D = $Display/Area3D
 
 func _ready() -> void:
 	var uiscene = UI_scene.instantiate()
 	margin_container.add_child(uiscene)
 	
-	node_area.mouse_entered.connect(_mouse_entered_area)
-	node_area.mouse_exited.connect(_mouse_exited_area)
-	node_area.input_event.connect(_mouse_input_event)
+	area_3d.mouse_entered.connect(_mouse_entered_area)
+	area_3d.mouse_exited.connect(_mouse_exited_area)
+	area_3d.input_event.connect(_mouse_input_event)
 
 	# If the material is NOT set to use billboard settings, then avoid running billboard specific code
-	if node_quad.get_surface_override_material(0).billboard_mode == BaseMaterial3D.BillboardMode.BILLBOARD_DISABLED:
+	if display.get_surface_override_material(0).billboard_mode == BaseMaterial3D.BillboardMode.BILLBOARD_DISABLED:
 		set_process(false)
 
 
@@ -53,12 +53,14 @@ func _unhandled_input(event: InputEvent) -> void:
 			# If the event is a mouse/touch event, then we can ignore it here, because it will be
 			# handled via Physics Picking.
 			return
-	node_viewport.push_input(event)
+
+	# Disabling the next line, causes errors
+	#node_viewport.push_input(event)
 
 
 func _mouse_input_event(_camera: Camera3D, event: InputEvent, event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
 	# Get mesh size to detect edges and make conversions. This code only supports PlaneMesh and QuadMesh.
-	var quad_mesh_size: Vector2 = node_quad.mesh.size
+	var quad_mesh_size: Vector2 = display.mesh.size
 
 	# Event position in Area3D in world coordinate space.
 	var event_pos3D := event_position
@@ -68,7 +70,7 @@ func _mouse_input_event(_camera: Camera3D, event: InputEvent, event_position: Ve
 
 	# Convert position to a coordinate space relative to the Area3D node.
 	# NOTE: `affine_inverse()` accounts for the Area3D node's scale, rotation, and position in the scene!
-	event_pos3D = node_quad.global_transform.affine_inverse() * event_pos3D
+	event_pos3D = display.global_transform.affine_inverse() * event_pos3D
 
 	# TODO: Adapt to bilboard mode or avoid completely.
 
@@ -122,7 +124,7 @@ func _mouse_input_event(_camera: Camera3D, event: InputEvent, event_position: Ve
 
 
 func rotate_area_to_billboard() -> void:
-	var billboard_mode: BaseMaterial3D.BillboardMode = node_quad.get_surface_override_material(0).billboard_mode
+	var billboard_mode: BaseMaterial3D.BillboardMode = display.get_surface_override_material(0).billboard_mode
 
 	# Try to match the area with the material's billboard setting, if enabled.
 	if billboard_mode > 0:
@@ -130,13 +132,13 @@ func rotate_area_to_billboard() -> void:
 		var camera := get_viewport().get_camera_3d()
 		# Look in the same direction as the camera.
 		var look := camera.to_global(Vector3(0, 0, -100)) - camera.global_transform.origin
-		look = node_area.position + look
+		look = area_3d.position + look
 
 		# Y-Billboard: Lock Y rotation, but gives bad results if the camera is tilted.
 		if billboard_mode == 2:
 			look = Vector3(look.x, 0, look.z)
 
-		node_area.look_at(look, Vector3.UP)
+		area_3d.look_at(look, Vector3.UP)
 
 		# Rotate in the Z axis to compensate camera tilt.
-		node_area.rotate_object_local(Vector3.BACK, camera.rotation.z)
+		area_3d.rotate_object_local(Vector3.BACK, camera.rotation.z)

@@ -1,19 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://pbp2r8bu5eps"]
+[gd_scene load_steps=3 format=3 uid="uid://gbdqy710ebj3"]
 
-[ext_resource type="Script" uid="uid://duw2ht5khbic1" path="res://ui/game_calendar.gd" id="1_4mlbo"]
-[ext_resource type="Theme" uid="uid://b5mx1y4metcyo" path="res://defaults/theme_ingame.tres" id="1_4obdd"]
+[ext_resource type="Script" uid="uid://bh1ahxgnrivek" path="res://ui/screens/player_info.gd" id="1_hblru"]
+[ext_resource type="Theme" uid="uid://b5mx1y4metcyo" path="res://game/defaults/theme_ingame.tres" id="2_o7hap"]
 
-[node name="GameCalendar" type="Control"]
-custom_minimum_size = Vector2(0, 20)
+[node name="PlayerInfo" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
-theme = ExtResource("1_4obdd")
-script = ExtResource("1_4mlbo")
+script = ExtResource("1_hblru")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(0, 20)
@@ -40,11 +37,11 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_right = 8
 
-[node name="GameCalendarLabel" type="Label" parent="MarginContainer/Panel/MarginContainer"]
+[node name="PlayerInfoLabel" type="Label" parent="MarginContainer/Panel/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme = ExtResource("1_4obdd")
-text = "GameCalendarLabel"
+theme = ExtResource("2_o7hap")
+text = "PlayerInfoLabel"
 horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
