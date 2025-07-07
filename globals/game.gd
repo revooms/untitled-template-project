@@ -46,9 +46,20 @@ func is_paused() -> bool:
 	
 func QuitApplication() -> void:
 	set_shutdown()
-	GameSave.save_player_data()
+	GameSave.save_game()
 	get_tree().quit()
 
 func get_player() -> Node3D:
 	var player_data = get_tree().get_nodes_in_group("Players")[0]
 	return player_data
+
+func get_player_node() -> Node3D:
+	var player_data = get_tree().get_first_node_in_group("Players")
+	return player_data
+
+func get_persistant_object() -> Dictionary:
+	return {
+		"author": self.author,
+		"date_begin": self.date_begin,
+		"version": self.version,
+	}

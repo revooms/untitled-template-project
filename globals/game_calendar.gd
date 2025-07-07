@@ -14,7 +14,6 @@ const MONTHS_PER_YEAR = 12
 func _ready() -> void:
 	pass
 
-
 func convert_to_ingame(getdate: String) -> int:
 	var timestamp = Time.get_unix_time_from_datetime_string(getdate)
 	return timestamp * TIME_MULTIPLIER
@@ -42,7 +41,16 @@ func get_date_object(getdate: String) -> Dictionary:
 		"month": dMonth,
 		"year": dYear,
 	}
+	var dateString = "%s-%02d-%02d, Week %d" % [tDate.year, tDate.month, tDate.day, tDate.week]
+	var timeString = "%02d:%02d" % [tDate.hour, tDate.minute]
 	var dateTimeString = "%s-%02d-%02d %02d:%02d, Week %d" % [tDate.year, tDate.month, tDate.day, tDate.hour, tDate.minute, tDate.week]
+	tDate["timestring"] = timeString
+	tDate["datestring"] = dateString
 	tDate["datetimestring"] = dateTimeString
 	return tDate
 	
+func detect_time_of_day() -> void:
+	pass
+	
+func detect_season() -> void:
+	pass
