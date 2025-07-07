@@ -28,10 +28,6 @@ Enums="*res://game/globals/enums.gd"
 EventHub="*res://game/globals/event_hub.gd"
 Logger="*res://game/globals/logger.gd"
 
-[editor_plugins]
-
-enabled=PackedStringArray()
-
 [global_group]
 
 Players="Players are in this group"

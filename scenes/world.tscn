@@ -1,12 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://byr5ghw08785o"]
+[gd_scene load_steps=16 format=3 uid="uid://byr5ghw08785o"]
 
 [ext_resource type="Environment" uid="uid://uicxvobl10rx" path="res://game/defaults/environment.tres" id="1_4wyf3"]
 [ext_resource type="Script" uid="uid://c52tveagbxupr" path="res://scripts/world.gd" id="1_71j4m"]
 [ext_resource type="CameraAttributesPractical" uid="uid://uucuiobxcfca" path="res://game/defaults/camera_attributes_practical.tres" id="2_k0juu"]
 [ext_resource type="Compositor" uid="uid://bwknf34rvb2fo" path="res://game/defaults/compositor.tres" id="3_71j4m"]
 [ext_resource type="PackedScene" uid="uid://c5uu6wubjxn05" path="res://prefabs/monitors/monitor.tscn" id="6_qfnet"]
-[ext_resource type="PackedScene" uid="uid://c0vkctu2rw2r4" path="res://prefabs/monitors/monitor_ads.tscn" id="7_4mrxx"]
+[ext_resource type="PackedScene" uid="uid://c0vkctu2rw2r4" path="res://prefabs/monitors/monitor_localtime.tscn" id="7_4mrxx"]
 [ext_resource type="PackedScene" uid="uid://f7v8oq8u4edd" path="res://prefabs/monitors/monitor_pause.tscn" id="8_7r4gi"]
+[ext_resource type="PackedScene" uid="uid://bwb31a23338ck" path="res://prefabs/audio_player.tscn" id="9_7r4gi"]
 [ext_resource type="Shader" uid="uid://bhw5h5q6qojya" path="res://assets/shaders/lava.gdshader" id="10_w7kh3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nnsk1"]
@@ -80,8 +81,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.59429)
 
 [node name="Monitor" parent="Monitors" instance=ExtResource("6_qfnet")]
 
-[node name="MonitorAds" parent="Monitors" instance=ExtResource("7_4mrxx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.89102, 0, 0)
-
 [node name="MonitorPause" parent="Monitors" instance=ExtResource("8_7r4gi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.80382, 0, 0)
+
+[node name="MonitorLocaltime" parent="Monitors" instance=ExtResource("7_4mrxx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.97954, 0, 0)
+
+[node name="AudioPlayer" parent="." instance=ExtResource("9_7r4gi")]
+auto_play = true
