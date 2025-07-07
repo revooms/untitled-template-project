@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://cadqnfruwtx4l"]
 
-[ext_resource type="Theme" uid="uid://b5mx1y4metcyo" path="res://game/defaults/theme_ingame.tres" id="1_57edr"]
-[ext_resource type="Script" uid="uid://beax7qbybgqtt" path="res://ui/screens/ads.gd" id="2_57edr"]
+[ext_resource type="Theme" uid="uid://b5mx1y4metcyo" path="res://game/defaults/theme_ingame.tres" id="1_spoya"]
+[ext_resource type="Script" uid="uid://beax7qbybgqtt" path="res://ui/screens/localtime.gd" id="2_svdl5"]
 
-[node name="Ads" type="Control"]
+[node name="Localtime" type="Control"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 3
 anchors_preset = 15
@@ -12,8 +12,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-theme = ExtResource("1_57edr")
-script = ExtResource("2_57edr")
+theme = ExtResource("1_spoya")
+script = ExtResource("2_svdl5")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(0, 20)
@@ -40,10 +40,11 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_right = 8
 
-[node name="AdsLabel" type="Label" parent="MarginContainer/Panel/MarginContainer"]
+[node name="LocaltimeLabel" type="Label" parent="MarginContainer/Panel/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme = ExtResource("1_57edr")
+theme = ExtResource("1_spoya")
+theme_override_font_sizes/font_size = 128
 text = "GameCalendarLabel"
 horizontal_alignment = 1
 vertical_alignment = 1
