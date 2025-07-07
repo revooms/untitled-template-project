@@ -55,7 +55,7 @@ func load_game() -> bool:
 	var game_variables = Game.get_persistant_object()
 	Logger.out(self, "Loading game variables")
 	for game_var in game_variables:
-		Logger.out(self, "Setting game's %s to %s (was %s)" % [game_var, config.get_value("game", game_var), Game[game_var]])
+		#Logger.out(self, "Setting game's %s to %s (was %s)" % [game_var, config.get_value("game", game_var), Game[game_var]])
 		Game[game_var] = config.get_value("game", game_var)
 		
 
@@ -63,7 +63,7 @@ func load_game() -> bool:
 	var player_variables = player.get_persistant_object()
 	Logger.out(self, "Loading player variables")
 	for player_var in player_variables:
-		Logger.out(self, "Setting player's %s to %s (was %s)" % [player_var, config.get_value("player", player_var), player[player_var]])
+		#Logger.out(self, "Setting player's %s to %s (was %s)" % [player_var, config.get_value("player", player_var), player[player_var]])
 		player[player_var] = config.get_value("player", player_var)
 
 	return true

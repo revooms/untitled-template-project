@@ -28,6 +28,10 @@ Enums="*res://globals/enums.gd"
 EventHub="*res://globals/event_hub.gd"
 Logger="*res://globals/logger.gd"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/brombeersEditorExtensions/plugin.cfg")
+
 [global_group]
 
 Players="Players are in this group"

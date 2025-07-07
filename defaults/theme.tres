@@ -1,3 +1,7 @@
-[gd_resource type="Theme" format=3 uid="uid://6ekagte06c8l"]
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://6ekagte06c8l"]
+
+[ext_resource type="FontFile" uid="uid://b7yovpufcb4pr" path="res://assets/fonts/monogram/monogram.ttf" id="1_pjc5b"]
 
 [resource]
+default_font = ExtResource("1_pjc5b")
+default_font_size = 36
