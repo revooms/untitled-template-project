@@ -24,7 +24,7 @@ func create_message(identifer, type, message) -> String:
 		logtype_text = "%s:" % Enums.LogType.keys()[type]
 		
 	return "%s: %s:%s %s" % [
-		Time.get_date_string_from_system(), 
+		Time.get_datetime_string_from_system(), 
 		identifer.name, 
 		logtype_text, 
 		message
