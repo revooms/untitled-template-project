@@ -27,7 +27,7 @@ node_area = NodePath("Display/Area3D")
 [node name="SubViewport" type="SubViewport" parent="."]
 snap_2d_transforms_to_pixel = true
 gui_embed_subwindows = true
-size = Vector2i(1920, 1080)
+size = Vector2i(960, 540)
 size_2d_override_stretch = true
 
 [node name="MarginContainer" type="MarginContainer" parent="SubViewport"]
