@@ -15,14 +15,18 @@ run/main_scene="uid://dsr14jtwafx8v"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://dwr4pr0kqjdqa"
+
 [autoload]
 
+GameSave="*res://globals/game_save.gd"
+GameCalendar="*res://globals/game_calendar.gd"
 Game="*res://globals/game.gd"
 Enums="*res://globals/enums.gd"
 EventHub="*res://globals/event_hub.gd"
 Logger="*res://globals/logger.gd"
-GameCalendar="*res://globals/game_calendar.gd"
-GameSave="*res://globals/game_save.gd"
 
 [global_group]
 
